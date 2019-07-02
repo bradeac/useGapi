@@ -13,30 +13,30 @@ npm install --save usegapi
 ## Prerequisites
 - Add a `REACT_APP_GOOGLE_CLIENT_ID` environment variable to your .env file,
 containing your Google client ID.  
-If you don't have a Google client ID, go to https://console.developers.google.com
 
-- Choose an OAuth Scope for the Google API that you will want to access.  
-List of scopes: https://developers.google.com/identity/protocols/googlescopes  
+- Choose the OAuth scope(s) for the Google API that you will want to access.  
 This scope will be passed to the hook as a parameter.
+
+If you don't have a Google client ID, go to https://console.developers.google.com  
+List of scopes: https://developers.google.com/identity/protocols/googlescopes  
 
 ## Usage
 
 ```jsx
 import React from 'react'
-
 import useGapi from 'usegapi'
 
-const Example = () => {
+const Login = () => {
     // using the readonly youtube scope for this example
     // response will either contain the user data or an error object
 
     const response = useGapi('https://www.googleapis.com/auth/youtube.readonly')
 
     return (
-        <div>
-            // mandatory div !!!
+        <>
+            // mandatory div. use this exact same id !!!
             <div id='google-signin-button'/>
-        </div>
+        </>
     )
 }
 ```

@@ -1,21 +1,55 @@
-import * as React from 'react'
+import { useEffect, useState } from 'react'
 
-export const useMyHook = () => {
-  let [{
-    counter
-  }, setState] = React.useState({
-    counter: 0
-  })
+function useGapi(scope) {
+    const [response, setResponse] = useState({})
 
-  React.useEffect(() => {
-    let interval = window.setInterval(() => {
-      counter++
-      setState({counter})
-    }, 1000)
-    return () => {
-      window.clearInterval(interval)
-    }
-  }, [])
+    useEffect(() => {
+        const addMeta = () => {
+            const meta = document.createElement('meta')
+            meta.name = 'google-signin-client_id'
+            meta.content = process.env.REACT_APP_GOOGLE_CLIENT_ID
+        
+            document.head.appendChild(meta)
+        }
+        
+        const addScript = () => {
+            const script = document.createElement('script')
+            script.type = 'text/javascript'
+            script.src = 'https://apis.google.com/js/platform.js?onload=onScriptLoad'
+            
+            script.onload = () => {
+                loadClientWhenGapiReady(script);
+            }
+        
+            document.body.appendChild(script)
+        }
 
-  return counter
+        const loadClientWhenGapiReady = (script) => {
+            if (script.getAttribute('gapi_processed')) {
+                window.gapi.signin2.render('google-signin-button', {
+                    'onsuccess': responseGoogle,
+                    'onfail': failureGoogle,
+                    'scope': scope,
+                })
+            }
+            else {
+                setTimeout(() => { this.loadClientWhenGapiReady(script) }, 100)
+            }
+        }
+
+        addMeta()
+        addScript()
+
+        const responseGoogle = user => {
+            setResponse(user)
+        }
+    
+        const failureGoogle = error => {
+            setResponse(error)
+        }
+    }, [response])
+
+    return response
 }
+  
+export default useGapi

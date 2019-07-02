@@ -1,6 +1,6 @@
 {
   "name": "usegapi",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "React Hook for using Gapi (Google&#x27;s SignIn Javascript authentication client)",
   "author": "bradeac",
   "license": "MIT",
@@ -47,7 +47,6 @@
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^9.0.0",
     "cross-env": "^5.2.0",
-    "eslint": "5.6.0",
     "eslint-config-standard": "^11.0.0",
     "eslint-config-standard-react": "^6.0.0",
     "eslint-plugin-import": "^2.13.0",

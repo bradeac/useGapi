@@ -1,12 +1,16 @@
 import React from 'react'
-import { useMyHook } from 'usegapi'
+import useGapi from 'usegapi'
 
 const App = () => {
-  const example = useMyHook()
+  const response = useGapi('https://www.googleapis.com/auth/youtube.readonly')
+
+  console.log(response)
+
   return (
     <div>
-      {example}
+      <div id='google-signin-button'/>
     </div>
   )
 }
+
 export default App

@@ -1,7 +1,7 @@
-import { useMyHook } from './'
+import { useGapi } from './'
 
-describe('useMyHook', () => {
+describe('usehook', () => {
   it('is truthy', () => {
-    expect(useMyHook).toBeTruthy()
+    expect(useGapi).toBeTruthy()
   })
 })

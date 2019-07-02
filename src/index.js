@@ -18,13 +18,21 @@ function useGapi(scope) {
             script.src = 'https://apis.google.com/js/platform.js?onload=onScriptLoad'
             
             script.onload = () => {
-                loadClientWhenGapiReady(script);
+                loadClientWhenGapiReady(script)
             }
         
             document.body.appendChild(script)
         }
 
-        const loadClientWhenGapiReady = (script) => {
+        const responseGoogle = user => {
+            setResponse(user)
+        }
+    
+        const failureGoogle = error => {
+            setResponse(error)
+        }
+
+        const loadClientWhenGapiReady = script => {
             if (script.getAttribute('gapi_processed')) {
                 window.gapi.signin2.render('google-signin-button', {
                     'onsuccess': responseGoogle,
@@ -39,14 +47,6 @@ function useGapi(scope) {
 
         addMeta()
         addScript()
-
-        const responseGoogle = user => {
-            setResponse(user)
-        }
-    
-        const failureGoogle = error => {
-            setResponse(error)
-        }
     }, [response])
 
     return response
